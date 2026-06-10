@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  permissions String   @default("[]")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  users       User[]
+}
+
+model User {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String        @unique
+  password     String
+  roleId       String        @db.ObjectId
+  status       String        @default("active")
+  avatar       String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  refreshToken String?
+  staffId      String?       @unique
+  activities   ActivityLog[]
+  role         Role          @relation(fields: [roleId], references: [id])
+}
+
+model SalesPerson {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  salesPersonId String   @unique
+  name          String
+  phone         String?
+  email         String?
+  status        String   @default("active")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  sales         Sale[]
+}
+
+model Sale {
+  id               String      @id @default(auto()) @map("_id") @db.ObjectId
+  saleNumber       String      @unique
+  saleDate         DateTime
+  customerName     String
+  businessName     String
+  phone            String
+  location         String?
+  address          String?
+  softwarePrice    Float
+  monthlyCharge    Float
+  advanceAmount    Float
+  dueAmount        Float
+  salesPersonId    String      @db.ObjectId
+  engineerId       String?     @db.ObjectId
+  installationDate DateTime?
+  status           String      @default("pending")
+  remarks          String?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  
+  // Relations
+  engineer         Engineer?   @relation(fields: [engineerId], references: [id])
+  salesPerson      SalesPerson @relation(fields: [salesPersonId], references: [id])
+  deviceIds        String[]    @db.ObjectId
+  devices          Device[]    @relation(fields: [deviceIds], references: [id])
+}
+
+model Device {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  imageUrl  String?
+  saleIds   String[] @db.ObjectId
+  sales     Sale[]   @relation(fields: [saleIds], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Engineer {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  engineerId  String   @unique
+  name        String
+  phone       String?
+  email       String?
+  address     String?
+  joiningDate DateTime
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  sales       Sale[]
+}
+
+model ActivityLog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  action    String
+  module    String
+  oldValue  String?
+  newValue  String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Setting {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  key   String @unique
+  value String
+}

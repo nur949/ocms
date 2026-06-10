@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "buildCommand": "pnpm turbo run build",
+  "installCommand": "pnpm install",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/apps/api/src/index.ts"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/apps/web/dist/$1"
+    }
+  ]
+}

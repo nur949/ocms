@@ -1,0 +1,16 @@
+{
+  "name": "office-coordinator-system",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "prettier": "^3.5.3"
+  },
+  "packageManager": "pnpm@11.5.3"
+}
