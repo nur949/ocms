@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "pnpm turbo run build",
+  "buildCommand": "pnpm --filter @ocms/api build && pnpm --filter @ocms/web build",
   "installCommand": "pnpm install",
   "outputDirectory": "apps/web/dist",
   "rewrites": [
