@@ -50,10 +50,9 @@ async function main() {
 
   // Engineers
   await prisma.engineer.upsert({
-    where: { id: 'eng-1' },
+    where: { engineerId: 'ENG-1001' },
     update: {},
     create: {
-      id: 'eng-1',
       engineerId: 'ENG-1001',
       name: 'John Doe',
       phone: '01711111111',
@@ -63,10 +62,9 @@ async function main() {
   });
 
   await prisma.engineer.upsert({
-    where: { id: 'eng-2' },
+    where: { engineerId: 'ENG-1002' },
     update: {},
     create: {
-      id: 'eng-2',
       engineerId: 'ENG-1002',
       name: 'Jane Smith',
       phone: '01822222222',
