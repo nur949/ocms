@@ -135,6 +135,13 @@ const EngineersPage = () => {
       )
     },
     { 
+      title: 'Address', 
+      dataIndex: 'address', 
+      key: 'address', 
+      width: 200, 
+      render: (address: string) => <Text style={{ fontSize: '12px' }}>{address || '-'}</Text>
+    },
+    { 
       title: 'Installs', 
       dataIndex: ['_count', 'sales'], 
       key: 'installations', 
