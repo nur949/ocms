@@ -1,27 +1,17 @@
 {
   "version": 2,
-  "installCommand": "pnpm install && pnpm --filter @ocms/api build && pnpm --filter @ocms/web build",
-  "builds": [
-    {
-      "src": "apps/api/dist/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "apps/web/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
+      "source": "/api/:path*",
       "destination": "/apps/api/dist/index.js"
     },
     {
-      "source": "/(.*)",
-      "destination": "/apps/web/dist/$1"
+      "source": "/assets/:path*",
+      "destination": "/apps/web/dist/assets/:path*"
+    },
+    {
+      "source": "/((?!api|assets).*).*",
+      "destination": "/apps/web/dist/index.html"
     }
   ]
 }
