@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 async function testLogin() {
   const req = {
     body: {
-      email: 'nur949@gmail.com',
+      email: 'nurjamalbabu949@gmail.com',
       password: 'nur9jamaL0978'
     }
   } as Request;

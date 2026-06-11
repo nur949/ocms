@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 async function main() {
   const users = [
     { email: 'admin@ocms.com', password: 'admin123' },
-    { email: 'nur949@gmail.com', password: 'nur9jamaL0978' }
+    { email: 'nurjamalbabu949@gmail.com', password: 'nur9jamaL0978' }
   ];
 
   for (const u of users) {
