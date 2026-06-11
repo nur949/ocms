@@ -7,25 +7,21 @@
       "use": "@vercel/node"
     },
     {
-      "src": "apps/web/dist/**",
-      "use": "@vercel/static"
+      "src": "apps/web/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/apps/api/dist/index.js"
+      "source": "/api/(.*)",
+      "destination": "/apps/api/dist/index.js"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/apps/web/dist/assets/$1"
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/apps/web/dist/index.html"
+      "source": "/(.*)",
+      "destination": "/apps/web/dist/$1"
     }
   ]
 }
